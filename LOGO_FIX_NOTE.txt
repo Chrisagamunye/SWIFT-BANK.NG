@@ -1,0 +1,15 @@
+LOGO FIX NOTE
+
+This version fixes logo display by putting the visible SwiftBank logo directly inside the HTML as inline SVG.
+
+This means:
+- The logo shows even if the assets folder path fails.
+- The browser title icon also uses inline SVG.
+- The assets/swiftbank-logo.svg file is still included for manifest/PWA support.
+
+If you uploaded an older version before:
+1. Delete the old GitHub files or overwrite all of them.
+2. Upload this full new package.
+3. Hard refresh:
+   - Laptop: Ctrl + F5
+   - Phone: open in incognito or clear browser cache.

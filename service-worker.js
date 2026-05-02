@@ -1,4 +1,4 @@
-const CACHE_NAME = "swiftbank-gamehub-pattern-v1";
+const CACHE_NAME = "swiftbank-inline-logo-fixed-v3";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
