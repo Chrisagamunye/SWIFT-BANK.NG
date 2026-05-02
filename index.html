@@ -1,759 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>SwiftBank Demo App</title>
-  <meta name="description" content="SwiftBank demo banking PWA built with HTML, CSS and JavaScript." />
-  <meta name="theme-color" content="#0f766e" />
-
-  <link rel="manifest" href="./manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      background: #f8fafc;
-      color: #111827;
-      overflow-x: hidden;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: none;
-    }
-
-    .page.active {
-      display: flex;
-    }
-
-    #loginPage {
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      background: linear-gradient(135deg, #07111f, #0f766e);
-    }
-
-    .login-card {
-      width: 100%;
-      max-width: 430px;
-      min-height: 720px;
-      border-radius: 30px;
-      padding: 30px 24px;
-      background: linear-gradient(160deg, #06202e, #0f766e);
-      color: white;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .login-card::before,
-    .login-card::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .login-card::before {
-      width: 230px;
-      height: 230px;
-      top: -80px;
-      right: -80px;
-    }
-
-    .login-card::after {
-      width: 170px;
-      height: 170px;
-      bottom: -60px;
-      left: -50px;
-    }
-
-    .login-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .brand {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .logo {
-      width: 76px;
-      height: 76px;
-      background: white;
-      color: #0f766e;
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 34px;
-      font-weight: 900;
-      margin: 0 auto 14px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-    }
-
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .brand h1 {
-      font-size: 31px;
-      margin-bottom: 8px;
-    }
-
-    .brand p,
-    .demo-note {
-      color: #ccfbf1;
-      font-size: 14px;
-    }
-
-    .demo-note {
-      margin-top: 18px;
-      font-size: 12px;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 7px;
-      font-weight: 700;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #d1d5db;
-      border-radius: 15px;
-      outline: none;
-      font-size: 15px;
-      background: white;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #0f766e;
-      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.16);
-    }
-
-    .login-card input {
-      border: none;
-    }
-
-    .btn {
-      width: 100%;
-      border: none;
-      padding: 15px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-primary {
-      background: #0f766e;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #115e59;
-      transform: translateY(-1px);
-    }
-
-    .btn-light {
-      background: white;
-      color: #0f766e;
-      margin-top: 10px;
-    }
-
-    .btn-secondary {
-      background: #e2e8f0;
-      color: #334155;
-    }
-
-    .logout {
-      background: #fee2e2;
-      color: #991b1b;
-      margin-top: 12px;
-    }
-
-    #installBtn {
-      display: none;
-      background: #111827;
-      color: white;
-      margin-top: 12px;
-    }
-
-    #appPage {
-      background: #f8fafc;
-      width: 100%;
-      min-height: 100vh;
-    }
-
-    .app-shell {
-      width: 100%;
-      min-height: 100vh;
-      background: #f8fafc;
-      position: relative;
-    }
-
-    .screen {
-      display: none;
-      animation: fadeIn 0.25s ease-in-out;
-      padding: 34px 34px 100px;
-      min-height: 100vh;
-    }
-
-    .screen.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px;
-      gap: 15px;
-    }
-
-    .user-box h2 {
-      font-size: 26px;
-      color: #0f172a;
-    }
-
-    .user-box p {
-      color: #64748b;
-      font-size: 14px;
-      margin-top: 4px;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .install-small {
-      border: none;
-      background: #111827;
-      color: white;
-      padding: 11px 14px;
-      border-radius: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      display: none;
-    }
-
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #0f766e;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
-    .card {
-      background: linear-gradient(135deg, #0f766e, #064e3b);
-      color: white;
-      border-radius: 24px;
-      padding: 26px;
-      box-shadow: 0 15px 35px rgba(15, 118, 110, 0.25);
-      margin-bottom: 22px;
-      position: relative;
-      overflow: hidden;
-      min-height: 245px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      right: -70px;
-      top: -60px;
-    }
-
-    .card small {
-      color: #ccfbf1;
-      font-size: 14px;
-    }
-
-    .balance-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      margin-top: 12px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .balance {
-      font-size: 48px;
-      font-weight: 900;
-      letter-spacing: -1px;
-      word-break: break-word;
-    }
-
-    .hide-btn {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 14px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 800;
-      min-width: 80px;
-      position: relative;
-      z-index: 3;
-    }
-
-    .hide-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .card-number {
-      margin-top: 25px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 15px;
-      letter-spacing: 2px;
-      color: #ecfeff;
-      position: relative;
-      z-index: 2;
-    }
-
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .action {
-      background: white;
-      border-radius: 18px;
-      padding: 20px 12px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-      cursor: pointer;
-      transition: 0.2s;
-      border: 1px solid #e5e7eb;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .action:hover {
-      transform: translateY(-2px);
-      border-color: #0f766e;
-    }
-
-    .action span {
-      display: block;
-      font-size: 34px;
-      margin-bottom: 8px;
-    }
-
-    .action p {
-      font-size: 13px;
-      color: #334155;
-      font-weight: 800;
-    }
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 12px 0;
-    }
-
-    .section-title h3 {
-      font-size: 20px;
-      color: #0f172a;
-    }
-
-    .section-title button {
-      background: none;
-      border: none;
-      color: #0f766e;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .transaction {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: white;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 10px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-      gap: 12px;
-    }
-
-    .transaction-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .transaction-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ecfdf5;
-      color: #0f766e;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .transaction-info h4 {
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .transaction-info p {
-      font-size: 12px;
-      color: #64748b;
-    }
-
-    .amount {
-      font-weight: 900;
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    .credit { color: #16a34a; }
-    .debit { color: #dc2626; }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid #e5e7eb;
-      padding: 8px 0 12px;
-      z-index: 5;
-    }
-
-    .nav-item {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 11px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .nav-item span {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .nav-item.active {
-      color: #0f766e;
-    }
-
-    .transfer-box,
-    .settings-box,
-    .analytics-box {
-      background: white;
-      padding: 24px;
-      border-radius: 22px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
-      margin-bottom: 16px;
-      width: 100%;
-    }
-
-    .success-message,
-    .danger-message {
-      display: none;
-      padding: 13px;
-      border-radius: 14px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .success-message {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .danger-message {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .stat {
-      background: #f1f5f9;
-      border-radius: 18px;
-      padding: 20px;
-      min-height: 130px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .stat p {
-      color: #64748b;
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .stat h3 {
-      font-size: 24px;
-      color: #0f172a;
-    }
-
-    .small-warning {
-      font-size: 12px;
-      color: #64748b;
-      line-height: 1.5;
-      margin-top: 12px;
-      background: #f1f5f9;
-      padding: 12px;
-      border-radius: 14px;
-    }
-
-    .loading-overlay,
-    .pin-modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 20;
-      padding: 20px;
-    }
-
-    .loading-overlay {
-      background: rgba(6, 32, 46, 0.94);
-      color: white;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .pin-modal {
-      background: rgba(15, 23, 42, 0.72);
-    }
-
-    .loading-overlay.active,
-    .pin-modal.active {
-      display: flex;
-    }
-
-    .spinner {
-      width: 44px;
-      height: 44px;
-      border: 4px solid rgba(255,255,255,0.25);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .pin-box {
-      width: 100%;
-      max-width: 360px;
-      background: white;
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
-      animation: fadeIn 0.2s ease-in-out;
-    }
-
-    .pin-box h3 {
-      font-size: 20px;
-      margin-bottom: 6px;
-      color: #0f172a;
-    }
-
-    .pin-box p {
-      font-size: 13px;
-      color: #64748b;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .modal-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    @media (min-width: 760px) {
-      #homeScreen.active {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
-        gap: 28px;
-        align-items: start;
-      }
-
-      .home-left,
-      .home-right {
-        width: 100%;
-      }
-
-      #transferScreen.active,
-      #analyticsScreen.active,
-      #settingsScreen.active {
-        width: 100%;
-        max-width: none;
-      }
-
-      #transferScreen .transfer-box {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-        align-items: end;
-      }
-
-      #transferScreen .transfer-box .btn,
-      #transferScreen .transfer-box .small-warning {
-        grid-column: span 2;
-      }
-
-      #analyticsScreen .analytics-box,
-      #settingsScreen .settings-box {
-        min-height: 430px;
-      }
-    }
-
-    @media (max-width: 759px) {
-      #loginPage {
-        padding: 0;
-      }
-
-      .login-card {
-        min-height: 100vh;
-        max-width: 100%;
-        border-radius: 0;
-      }
-
-      .app-shell {
-        min-height: 100vh;
-      }
-
-      .screen {
-        padding: 24px 24px 90px;
-      }
-
-      .user-box h2 {
-        font-size: 22px;
-      }
-
-      .topbar {
-        align-items: flex-start;
-      }
-
-      .top-actions {
-        gap: 6px;
-      }
-
-      .install-small {
-        padding: 9px 10px;
-        font-size: 12px;
-      }
-
-      .balance {
-        font-size: 32px;
-      }
-
-      .card {
-        min-height: auto;
-        padding: 22px;
-      }
-
-      .quick-actions {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-      }
-
-      .action {
-        min-height: auto;
-        padding: 14px 8px;
-      }
-
-      .action span {
-        font-size: 23px;
-      }
-
-      .action p {
-        font-size: 11px;
-      }
-
-      .stat-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .stat h3 {
-        font-size: 20px;
-      }
-    }
-  </style>
+  <link rel="icon" type="image/svg+xml" href="assets/swiftbank-logo.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SwiftBank Demo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="loadingOverlay" class="loading-overlay">
@@ -761,37 +17,51 @@
     <p>Opening your dashboard...</p>
   </div>
 
-  <main id="loginPage" class="page active">
+  <main id="loginPage" class="login-page active">
     <section class="login-card">
       <div class="login-content">
         <div class="brand">
-          <div class="logo"><img src="./logo.png" alt="SwiftBank Logo" onerror="this.remove(); this.parentElement.textContent='S';"></div>
+          <div class="brand-logo"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"></div>
           <h1>SwiftBank</h1>
           <p>Smart demo banking experience</p>
         </div>
 
         <div class="form-group" id="usernameGroup">
           <label>Username</label>
-          <input type="text" id="username" placeholder="Enter demo username" />
+          <input type="text" id="username" placeholder="Enter demo username">
         </div>
 
         <div class="form-group">
           <label id="pinLabel">PIN</label>
-          <input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4" />
+          <input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4">
         </div>
 
-        <button class="btn btn-light" id="loginBtn">Login</button>
-        <button class="btn" id="installBtn">Install Web App</button>
+        <button class="btn btn-ghost" id="loginBtn">Login</button>
+        <button class="btn btn-dark" id="installLoginBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
 
-        <p class="demo-note">
-          Demo only. Do not enter real banking details, real PINs, BVN, card number, or password.
-        </p>
+        <p class="demo-note">Demo only. Do not enter real banking details, real PINs, BVN, card number, or password.</p>
       </div>
     </section>
   </main>
 
   <main id="appPage" class="page">
     <div class="app-shell">
+      <header class="site-header">
+        <nav class="navbar">
+          <a href="index.html" class="nav-logo">
+            <img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo">
+            <span>SwiftBank</span>
+          </a>
+          <button class="menu-toggle" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+          <ul class="nav-menu">
+            <li><a href="#" class="nav-link active" data-screen="homeScreen">🏠 Home</a></li>
+            <li><a href="#" class="nav-link" data-screen="transferScreen">💸 Transfer</a></li>
+            <li><a href="#" class="nav-link" data-screen="analyticsScreen">📊 Stats</a></li>
+            <li><a href="download.html" class="nav-link">⬇️ Download</a></li>
+          </ul>
+        </nav>
+      </header>
+
       <section id="homeScreen" class="screen active">
         <div class="home-left">
           <div class="topbar">
@@ -801,7 +71,7 @@
             </div>
 
             <div class="top-actions">
-              <button class="install-small" id="installSmallBtn">Install</button>
+              <button class="btn btn-dark install-small" id="installSmallBtn">Install</button>
               <div class="avatar" id="avatar">U</div>
             </div>
           </div>
@@ -810,36 +80,21 @@
             <div>
               <small>Available Balance</small>
               <div class="balance-row">
-                <div class="balance" id="balanceText">₦850,000</div>
+                <div class="balance" id="balanceText">₦0</div>
                 <button type="button" class="hide-btn" id="hideBalanceBtn">Hide</button>
               </div>
             </div>
 
             <div class="card-number">
-              <span>****</span>
-              <span>****</span>
-              <span>****</span>
-              <span>2489</span>
+              <span>****</span><span>****</span><span>****</span><span>2489</span>
             </div>
           </div>
 
           <div class="quick-actions">
-            <div class="action" data-screen="transferScreen">
-              <span>💸</span>
-              <p>Transfer</p>
-            </div>
-            <div class="action" id="payBillBtn">
-              <span>🧾</span>
-              <p>Pay Bills</p>
-            </div>
-            <div class="action" id="buyAirtimeBtn">
-              <span>📱</span>
-              <p>Airtime</p>
-            </div>
-            <div class="action" data-screen="analyticsScreen">
-              <span>📊</span>
-              <p>Stats</p>
-            </div>
+            <div class="action" data-screen="transferScreen"><span>💸</span><p>Transfer</p></div>
+            <div class="action" id="payBillBtn"><span>🧾</span><p>Pay Bills</p></div>
+            <div class="action" id="buyAirtimeBtn"><span>📱</span><p>Airtime</p></div>
+            <div class="action" data-screen="analyticsScreen"><span>📊</span><p>Stats</p></div>
           </div>
         </div>
 
@@ -853,116 +108,48 @@
       </section>
 
       <section id="transferScreen" class="screen">
-        <div class="topbar">
-          <div class="user-box">
-            <h2>Transfer Money</h2>
-            <p>Send demo funds safely</p>
-          </div>
-        </div>
-
+        <div class="topbar"><div class="user-box"><h2>Transfer Money</h2><p>Send demo funds safely</p></div></div>
         <div id="successMessage" class="success-message"></div>
         <div id="dangerMessage" class="danger-message"></div>
 
         <div class="transfer-box">
-          <div class="form-group">
-            <label>Recipient Name</label>
-            <input type="text" id="recipientName" placeholder="Example: John Doe" />
-          </div>
-
-          <div class="form-group">
-            <label>Bank</label>
-            <select id="bankName">
-              <option value="First Demo Bank">First Demo Bank</option>
-              <option value="Swift Microfinance">Swift Microfinance</option>
-              <option value="GreenTrust Bank">GreenTrust Bank</option>
-              <option value="Campus Pay Bank">Campus Pay Bank</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Account Number</label>
-            <input type="text" id="accountNumber" placeholder="10-digit demo account" maxlength="10" />
-          </div>
-
-          <div class="form-group">
-            <label>Amount</label>
-            <input type="number" id="transferAmount" placeholder="Enter amount" />
-          </div>
-
+          <div class="form-group"><label>Recipient Name</label><input type="text" id="recipientName" placeholder="Example: John Doe"></div>
+          <div class="form-group"><label>Bank</label><select id="bankName"><option>First Demo Bank</option><option>Swift Microfinance</option><option>GreenTrust Bank</option><option>Campus Pay Bank</option></select></div>
+          <div class="form-group"><label>Account Number</label><input type="text" id="accountNumber" placeholder="10-digit demo account" maxlength="10"></div>
+          <div class="form-group"><label>Amount</label><input type="number" id="transferAmount" placeholder="Enter amount"></div>
           <button class="btn btn-primary" id="sendMoneyBtn">Send Money</button>
-
-          <p class="small-warning">
-            This is a front-end demo. A real banking app must use secure backend authentication, encryption, server validation, fraud protection, audit logs, and legal compliance.
-          </p>
+          <p class="small-warning">This is a demo. Real banking apps need secure backend authentication, encryption, server validation, audit logs, and legal compliance.</p>
         </div>
       </section>
 
       <section id="analyticsScreen" class="screen">
-        <div class="topbar">
-          <div class="user-box">
-            <h2>Account Stats</h2>
-            <p>Your demo account summary</p>
-          </div>
-        </div>
-
+        <div class="topbar"><div class="user-box"><h2>Account Stats</h2><p>Your demo account summary</p></div></div>
         <div class="analytics-box">
           <div class="stat-grid">
-            <div class="stat">
-              <p>Total Credit</p>
-              <h3 id="totalCredit">₦0</h3>
-            </div>
-            <div class="stat">
-              <p>Total Debit</p>
-              <h3 id="totalDebit">₦0</h3>
-            </div>
-            <div class="stat">
-              <p>Transactions</p>
-              <h3 id="totalTransactions">0</h3>
-            </div>
-            <div class="stat">
-              <p>Account Type</p>
-              <h3>Savings</h3>
-            </div>
+            <div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div>
+            <div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div>
+            <div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div>
+            <div class="stat"><p>Account Type</p><h3>Savings</h3></div>
           </div>
         </div>
       </section>
 
       <section id="settingsScreen" class="screen">
-        <div class="topbar">
-          <div class="user-box">
-            <h2>Settings</h2>
-            <p>Control your demo app</p>
-          </div>
-        </div>
-
+        <div class="topbar"><div class="user-box"><h2>Settings</h2><p>Control your demo app</p></div></div>
         <div class="settings-box">
           <button class="btn btn-primary" id="addDemoCreditBtn">Add Demo Credit</button>
-          <button class="btn" id="installSettingsBtn" style="background:#111827;color:white;margin-top:12px;">Install Web App</button>
-          <button class="btn logout" id="lockAppBtn">Lock App</button>
-          <button class="btn logout" id="fullLogoutBtn">Logout Completely</button>
-          <p class="small-warning">
-            Never store real PINs, card numbers, BVN, NIN, or passwords inside frontend code. This app is for learning HTML, CSS, and JavaScript only.
-          </p>
+          <button class="btn btn-dark" id="installSettingsBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
+          <button class="btn btn-danger" id="lockAppBtn">Lock App</button>
+          <button class="btn btn-danger" id="fullLogoutBtn">Logout Completely</button>
+          <p class="small-warning">Balance starts at ₦0. Use Add Demo Credit before transferring or paying bills.</p>
         </div>
       </section>
 
       <nav class="bottom-nav">
-        <div class="nav-item active" data-screen="homeScreen">
-          <span>🏠</span>
-          Home
-        </div>
-        <div class="nav-item" data-screen="transferScreen">
-          <span>💸</span>
-          Transfer
-        </div>
-        <div class="nav-item" data-screen="analyticsScreen">
-          <span>📊</span>
-          Stats
-        </div>
-        <div class="nav-item" data-screen="settingsScreen">
-          <span>⚙️</span>
-          Settings
-        </div>
+        <div class="nav-item active" data-screen="homeScreen"><span>🏠</span>Home</div>
+        <div class="nav-item" data-screen="transferScreen"><span>💸</span>Transfer</div>
+        <div class="nav-item" data-screen="analyticsScreen"><span>📊</span>Stats</div>
+        <div class="nav-item" data-screen="settingsScreen"><span>⚙️</span>Settings</div>
       </nav>
     </div>
   </main>
@@ -971,373 +158,12 @@
     <div class="pin-box">
       <h3>Confirm Transfer</h3>
       <p>Please enter your login PIN to authorize this demo transfer.</p>
-
-      <div class="form-group">
-        <label>Transaction PIN</label>
-        <input type="password" id="transferPin" placeholder="Enter PIN" maxlength="4" />
-      </div>
-
+      <div class="form-group"><label>Transaction PIN</label><input type="password" id="transferPin" placeholder="Enter PIN" maxlength="4"></div>
       <div id="pinError" class="danger-message"></div>
-
-      <div class="modal-actions">
-        <button class="btn btn-secondary" id="cancelPinBtn">Cancel</button>
-        <button class="btn btn-primary" id="confirmPinBtn">Confirm</button>
-      </div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="cancelPinBtn">Cancel</button><button class="btn btn-primary" id="confirmPinBtn">Confirm</button></div>
     </div>
   </div>
 
-  <script>
-    let balance = 850000;
-    let balanceHidden = false;
-    let savedUsername = "";
-    let savedPin = "";
-    let pendingTransfer = null;
-    let deferredInstallPrompt = null;
-
-    let transactions = [
-      { title: "Salary Payment", date: "Today, 8:30 AM", amount: 250000, type: "credit", icon: "💼" },
-      { title: "Airtime Purchase", date: "Yesterday, 7:12 PM", amount: 3000, type: "debit", icon: "📱" },
-      { title: "Grocery Store", date: "Apr 30, 4:20 PM", amount: 18500, type: "debit", icon: "🛒" },
-      { title: "Transfer Received", date: "Apr 29, 11:05 AM", amount: 90000, type: "credit", icon: "⬇️" }
-    ];
-
-    const loginPage = document.getElementById("loginPage");
-    const appPage = document.getElementById("appPage");
-    const loadingOverlay = document.getElementById("loadingOverlay");
-
-    function formatMoney(amount) {
-      return "₦" + Number(amount).toLocaleString("en-NG");
-    }
-
-    function login() {
-      const usernameInput = document.getElementById("username");
-      const pinInput = document.getElementById("pin");
-      const username = usernameInput.value.trim();
-      const pin = pinInput.value.trim();
-
-      if (!savedUsername && !username) {
-        alert("Please enter a demo username.");
-        return;
-      }
-
-      if (pin.length !== 4 || isNaN(pin)) {
-        alert("Please enter any 4-digit demo PIN.");
-        return;
-      }
-
-      if (savedPin && pin !== savedPin) {
-        alert("Incorrect PIN.");
-        return;
-      }
-
-      if (!savedUsername) {
-        savedUsername = username;
-        savedPin = pin;
-      }
-
-      document.getElementById("displayName").textContent = savedUsername.split(" ")[0];
-      document.getElementById("avatar").textContent = savedUsername[0].toUpperCase();
-
-      loadingOverlay.classList.add("active");
-
-      setTimeout(() => {
-        loadingOverlay.classList.remove("active");
-        loginPage.classList.remove("active");
-        appPage.classList.add("active");
-        showScreen("homeScreen");
-        pinInput.value = "";
-        updateUI();
-      }, 450);
-    }
-
-    function lockApp() {
-      appPage.classList.remove("active");
-      loginPage.classList.add("active");
-      document.getElementById("pin").value = "";
-
-      if (savedUsername) {
-        document.getElementById("usernameGroup").style.display = "none";
-        document.getElementById("pinLabel").textContent = `Welcome back, ${savedUsername.split(" ")[0]} — enter PIN`;
-      }
-
-      showScreen("homeScreen");
-    }
-
-    function fullLogout() {
-      savedUsername = "";
-      savedPin = "";
-      document.getElementById("usernameGroup").style.display = "block";
-      document.getElementById("pinLabel").textContent = "PIN";
-      document.getElementById("username").value = "";
-      lockApp();
-    }
-
-    function showScreen(screenId) {
-      document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
-      document.getElementById(screenId).classList.add("active");
-
-      document.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.toggle("active", item.dataset.screen === screenId);
-      });
-
-      updateStats();
-    }
-
-    function updateBalanceDisplay() {
-      const balanceText = document.getElementById("balanceText");
-      const hideBalanceBtn = document.getElementById("hideBalanceBtn");
-
-      if (!balanceText || !hideBalanceBtn) return;
-
-      if (balanceHidden) {
-        balanceText.textContent = "₦••••••";
-        hideBalanceBtn.textContent = "Show";
-      } else {
-        balanceText.textContent = formatMoney(balance);
-        hideBalanceBtn.textContent = "Hide";
-      }
-    }
-
-    function toggleBalance() {
-      balanceHidden = !balanceHidden;
-      updateBalanceDisplay();
-    }
-
-    function updateUI() {
-      updateBalanceDisplay();
-      renderTransactions();
-      updateStats();
-    }
-
-    function renderTransactions() {
-      const list = document.getElementById("transactionList");
-      list.innerHTML = "";
-
-      if (transactions.length === 0) {
-        list.innerHTML = `<p style="text-align:center;color:#64748b;margin-top:20px;">No transactions yet.</p>`;
-        return;
-      }
-
-      transactions.forEach(tx => {
-        const sign = tx.type === "credit" ? "+" : "-";
-        const txClass = tx.type === "credit" ? "credit" : "debit";
-
-        list.innerHTML += `
-          <div class="transaction">
-            <div class="transaction-left">
-              <div class="transaction-icon">${tx.icon}</div>
-              <div class="transaction-info">
-                <h4>${tx.title}</h4>
-                <p>${tx.date}</p>
-              </div>
-            </div>
-            <div class="amount ${txClass}">${sign}${formatMoney(tx.amount)}</div>
-          </div>
-        `;
-      });
-    }
-
-    function sendMoney() {
-      const recipient = document.getElementById("recipientName").value.trim();
-      const accountNumber = document.getElementById("accountNumber").value.trim();
-      const amount = Number(document.getElementById("transferAmount").value);
-      const bank = document.getElementById("bankName").value;
-      const successMessage = document.getElementById("successMessage");
-      const dangerMessage = document.getElementById("dangerMessage");
-
-      successMessage.style.display = "none";
-      dangerMessage.style.display = "none";
-
-      if (!recipient || accountNumber.length !== 10 || isNaN(accountNumber) || amount <= 0) {
-        dangerMessage.textContent = "Please enter valid transfer details.";
-        dangerMessage.style.display = "block";
-        return;
-      }
-
-      if (amount > balance) {
-        dangerMessage.textContent = "Insufficient demo balance.";
-        dangerMessage.style.display = "block";
-        return;
-      }
-
-      pendingTransfer = { recipient, accountNumber, amount, bank };
-      openPinModal();
-    }
-
-    function openPinModal() {
-      document.getElementById("transferPin").value = "";
-      document.getElementById("pinError").style.display = "none";
-      document.getElementById("pinModal").classList.add("active");
-      setTimeout(() => document.getElementById("transferPin").focus(), 100);
-    }
-
-    function closePinModal() {
-      document.getElementById("pinModal").classList.remove("active");
-      pendingTransfer = null;
-    }
-
-    function confirmTransferPin() {
-      const enteredPin = document.getElementById("transferPin").value.trim();
-      const pinError = document.getElementById("pinError");
-      const successMessage = document.getElementById("successMessage");
-
-      pinError.style.display = "none";
-
-      if (enteredPin !== savedPin) {
-        pinError.textContent = "Incorrect PIN. Transfer not completed.";
-        pinError.style.display = "block";
-        return;
-      }
-
-      if (!pendingTransfer) return;
-
-      balance -= pendingTransfer.amount;
-
-      transactions.unshift({
-        title: `Transfer to ${pendingTransfer.recipient}`,
-        date: `Now • ${pendingTransfer.bank}`,
-        amount: pendingTransfer.amount,
-        type: "debit",
-        icon: "💸"
-      });
-
-      successMessage.textContent = `Demo transfer of ${formatMoney(pendingTransfer.amount)} sent to ${pendingTransfer.recipient}.`;
-      successMessage.style.display = "block";
-
-      document.getElementById("recipientName").value = "";
-      document.getElementById("accountNumber").value = "";
-      document.getElementById("transferAmount").value = "";
-
-      closePinModal();
-      updateUI();
-    }
-
-    function payBill() {
-      const amount = 12000;
-      if (amount > balance) return alert("Insufficient demo balance.");
-
-      balance -= amount;
-      transactions.unshift({ title: "Electricity Bill", date: "Now", amount, type: "debit", icon: "🧾" });
-      updateUI();
-      alert("Demo electricity bill paid successfully.");
-    }
-
-    function buyAirtime() {
-      const amount = 2000;
-      if (amount > balance) return alert("Insufficient demo balance.");
-
-      balance -= amount;
-      transactions.unshift({ title: "Airtime Purchase", date: "Now", amount, type: "debit", icon: "📱" });
-      updateUI();
-      alert("Demo airtime purchase successful.");
-    }
-
-    function addDemoCredit() {
-      const amount = 100000;
-      balance += amount;
-      transactions.unshift({ title: "Demo Credit Added", date: "Now", amount, type: "credit", icon: "➕" });
-      updateUI();
-      alert("Demo credit added successfully.");
-    }
-
-    function clearTransactions() {
-      const confirmClear = confirm("Clear all demo transactions?");
-      if (!confirmClear) return;
-      transactions = [];
-      updateUI();
-    }
-
-    function updateStats() {
-      const totalCredit = transactions
-        .filter(tx => tx.type === "credit")
-        .reduce((sum, tx) => sum + tx.amount, 0);
-
-      const totalDebit = transactions
-        .filter(tx => tx.type === "debit")
-        .reduce((sum, tx) => sum + tx.amount, 0);
-
-      document.getElementById("totalCredit").textContent = formatMoney(totalCredit);
-      document.getElementById("totalDebit").textContent = formatMoney(totalDebit);
-      document.getElementById("totalTransactions").textContent = transactions.length;
-    }
-
-    function showInstallButtons() {
-      ["installBtn", "installSmallBtn", "installSettingsBtn"].forEach(id => {
-        const btn = document.getElementById(id);
-        if (btn) btn.style.display = "block";
-      });
-    }
-
-    function hideInstallButtons() {
-      ["installBtn", "installSmallBtn", "installSettingsBtn"].forEach(id => {
-        const btn = document.getElementById(id);
-        if (btn) btn.style.display = "none";
-      });
-    }
-
-    async function installApp() {
-      if (!deferredInstallPrompt) {
-        alert("Install is not available yet. Open this app from HTTPS or localhost, then try again.");
-        return;
-      }
-
-      deferredInstallPrompt.prompt();
-      await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      hideInstallButtons();
-    }
-
-    window.addEventListener("beforeinstallprompt", event => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-      showInstallButtons();
-    });
-
-    window.addEventListener("appinstalled", () => {
-      deferredInstallPrompt = null;
-      hideInstallButtons();
-      alert("SwiftBank Demo installed successfully.");
-    });
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("service-worker.js")
-          .catch(error => console.log("Service worker registration failed:", error));
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("loginBtn").addEventListener("click", login);
-      document.getElementById("hideBalanceBtn").addEventListener("click", toggleBalance);
-      document.getElementById("sendMoneyBtn").addEventListener("click", sendMoney);
-      document.getElementById("cancelPinBtn").addEventListener("click", closePinModal);
-      document.getElementById("confirmPinBtn").addEventListener("click", confirmTransferPin);
-      document.getElementById("payBillBtn").addEventListener("click", payBill);
-      document.getElementById("buyAirtimeBtn").addEventListener("click", buyAirtime);
-      document.getElementById("clearTransactionsBtn").addEventListener("click", clearTransactions);
-      document.getElementById("addDemoCreditBtn").addEventListener("click", addDemoCredit);
-      document.getElementById("lockAppBtn").addEventListener("click", lockApp);
-      document.getElementById("fullLogoutBtn").addEventListener("click", fullLogout);
-
-      ["installBtn", "installSmallBtn", "installSettingsBtn"].forEach(id => {
-        const btn = document.getElementById(id);
-        if (btn) btn.addEventListener("click", installApp);
-      });
-
-      document.querySelectorAll("[data-screen]").forEach(button => {
-        button.addEventListener("click", () => showScreen(button.dataset.screen));
-      });
-
-      document.getElementById("pin").addEventListener("keydown", event => {
-        if (event.key === "Enter") login();
-      });
-
-      document.getElementById("transferPin").addEventListener("keydown", event => {
-        if (event.key === "Enter") confirmTransferPin();
-      });
-
-      updateUI();
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>

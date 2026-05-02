@@ -1,8 +1,8 @@
 {
-  "name": "SwiftBank Demo App",
+  "name": "SwiftBank Demo",
   "short_name": "SwiftBank",
-  "description": "A demo banking PWA made with HTML, CSS and JavaScript.",
-  "start_url": "./index.html",
+  "description": "SwiftBank demo banking web app with PWA install support.",
+  "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
@@ -10,28 +10,22 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "assets/swiftbank-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }

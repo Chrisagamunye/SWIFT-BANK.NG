@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="assets/swiftbank-logo.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Download SwiftBank App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo">
+        <span>SwiftBank</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">🏠 App</a></li>
+        <li><a href="download.html" class="nav-link active">⬇️ Download</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="download-hero">
+      <span class="eyebrow">Android ready</span>
+      <h1>Download SwiftBank App</h1>
+      <p>Install SwiftBank as a web app or download the Android APK when you upload your APK file.</p>
+    </section>
+
+    <section class="download-card">
+      <img class="app-icon" src="assets/swiftbank-logo.svg" alt="SwiftBank App Logo">
+      <div class="download-info">
+        <h2>SwiftBank for Android</h2>
+        <p>Open your demo banking dashboard from your phone or laptop.</p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="downloads/SwiftBank.apk" download>⬇️ Download APK</a>
+          <button class="btn btn-ghost" id="pwaInstallBtn">📲 Install Web App</button>
+          <a class="btn btn-ghost" href="index.html">🏦 Open App</a>
+        </div>
+        <div class="notice">
+          Important: place your built APK file here: <strong>downloads/SwiftBank.apk</strong>. The button above is already linked to it.
+        </div>
+      </div>
+    </section>
+
+    <section class="steps">
+      <article class="step"><span>1</span><h3>Deploy Web App</h3><p>Upload all files and folders to GitHub Pages or any HTTPS hosting.</p></article>
+      <article class="step"><span>2</span><h3>Install PWA</h3><p>Click Install Web App or use your browser menu to add it to your device.</p></article>
+      <article class="step"><span>3</span><h3>Add APK Later</h3><p>Build your APK, rename it to SwiftBank.apk, and place it inside the downloads folder.</p></article>
+    </section>
+  </main>
+
+  <footer class="footer">© 2026 SwiftBank Demo. For learning only.</footer>
+
+  <script>
+    const toggle=document.querySelector(".menu-toggle");
+    const menu=document.querySelector(".nav-menu");
+    if(toggle&&menu){toggle.addEventListener("click",()=>menu.classList.toggle("show"));}
+
+    const pwaInstallBtn=document.getElementById("pwaInstallBtn");
+    let deferredPrompt=null;
+
+    window.addEventListener("beforeinstallprompt",(event)=>{
+      event.preventDefault();
+      deferredPrompt=event;
+      if(pwaInstallBtn)pwaInstallBtn.style.display="inline-block";
+    });
+
+    if(pwaInstallBtn){
+      pwaInstallBtn.addEventListener("click",async()=>{
+        if(!deferredPrompt){
+          alert("Use your browser menu and choose 'Add to Home screen' or 'Install app'.");
+          return;
+        }
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt=null;
+      });
+    }
+
+    if("serviceWorker" in navigator){
+      window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
+    }
+  </script>
+</body>
+</html>

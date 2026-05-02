@@ -1,0 +1,32 @@
+SWIFTBANK FULL PACKAGE - GAMEHUB INSTALL PATTERN
+
+Inside:
+- index.html
+- download.html
+- style.css
+- app.js
+- manifest.json
+- service-worker.js
+- assets/swiftbank-logo.svg
+- icons folder
+- downloads folder
+
+What changed:
+- Logo added to title/favicon area
+- Logo added to navbar/header
+- Download page follows the GameHub style
+- Install Web App button added
+- APK download button points to downloads/SwiftBank.apk
+- Starting balance is now ₦0
+- Users must add demo credit before spending
+
+How to deploy:
+1. Unzip this package.
+2. Upload all files and folders to GitHub.
+3. Make sure index.html is in the root.
+4. Enable GitHub Pages.
+5. Open your GitHub Pages link.
+6. Use Install Web App.
+
+APK:
+Build APK separately, rename it to SwiftBank.apk, then put it in downloads/SwiftBank.apk.
