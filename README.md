@@ -1,28 +1,38 @@
-# SwiftBank Demo PWA
+# SwiftBank Demo PWA - Logo Fixed
 
-This is a demo banking web app built with HTML, CSS, and JavaScript.
+This package includes fixed logo paths for web deployment.
 
-## Files
+## Upload these files/folders to GitHub
 
-- `index.html` — main app
-- `manifest.json` — PWA install configuration
-- `service-worker.js` — offline cache / install support
-- `icons/` — app icons
+Upload everything inside this folder:
 
-## How to deploy on GitHub Pages
+- index.html
+- manifest.json
+- service-worker.js
+- logo.png
+- logo.svg
+- icons folder
 
-1. Create a new GitHub repository.
-2. Upload all files in this folder, not the ZIP file itself.
-3. Go to Repository Settings.
-4. Open Pages.
-5. Choose Deploy from branch.
-6. Select `main` branch and `/root`.
-7. Wait for GitHub Pages to publish the site.
+Do not upload only the ZIP file.
 
-## Install Web App
+## Important logo note
 
-After deploying, open the site in Chrome, Edge, or Android browser.
-The `Install Web App` button will appear when the browser allows installation.
+The logo will not show if you forget to upload the `icons` folder or `logo.png`.
+Make sure GitHub shows:
 
-Important:
-This is only a demo. It is not a real banking system and should not collect real banking details.
+- `icons/icon-192.png`
+- `icons/icon-512.png`
+- `logo.png`
+
+## If you already uploaded the old version
+
+1. Delete the old files from the GitHub repository.
+2. Upload this new fixed package.
+3. Open your website.
+4. Refresh hard:
+   - Laptop: Ctrl + F5
+   - Phone: clear browser cache or open in incognito/private tab
+
+## PWA Install
+
+Install works only from HTTPS, for example GitHub Pages.
