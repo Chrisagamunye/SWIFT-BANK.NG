@@ -1,0 +1,23 @@
+NO CREATE USER PAGE VERSION
+
+Removed:
+- Users page
+- Create Demo User form
+- Users nav link
+- Users bottom navigation item
+
+Kept:
+- Unique account number for every account
+- Account number shown on Home
+- Transfer requires receiver username + receiver account number
+- PIN-only unlock after first login
+- ₦0 starting balance
+- Add Demo Credit in Settings
+
+How to create another account for testing:
+1. Click Logout Completely.
+2. Enter a different username and a 4-digit PIN.
+3. A new account number will be generated.
+4. Copy that account number.
+5. Logout Completely again and login to the first account.
+6. Transfer to the other username + account number.

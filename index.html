@@ -8,7 +8,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>SwiftBank Online Demo</title>
+  <title>SwiftBank Demo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,156 +17,67 @@
   <main id="loginPage" class="login-page active">
     <section class="login-card">
       <div class="login-content">
-        <div class="brand">
-          <img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo">
-          <h1>SwiftBank</h1>
-          <p>Online demo banking</p>
-        </div>
-
-        <div class="form-group" id="usernameGroup">
-          <label>Username</label>
-          <input type="text" id="username" placeholder="Example: David">
-        </div>
-
-        <div class="form-group">
-          <label id="pinLabel">PIN</label>
-          <input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4">
-        </div>
-
+        <div class="brand"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"><h1>SwiftBank</h1><p>Demo banking with unique accounts</p></div>
+        <div class="form-group"><label>Username</label><input type="text" id="username" placeholder="Example: David"></div>
+        <div class="form-group"><label>PIN</label><input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4"></div>
         <button class="btn btn-ghost" id="loginBtn">Login / Create Account</button>
         <button class="btn btn-dark" id="installLoginBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
-
-        <p class="demo-note">This version uses Firebase Firestore so accounts can sync across phones after setup.</p>
+        <p class="demo-note">First login creates a demo SwiftBank account with a unique account number on this browser.</p>
       </div>
     </section>
   </main>
 
   <main id="appPage" class="page">
     <div class="app-shell">
-      <header class="site-header">
-        <nav class="navbar">
-          <a href="index.html" class="nav-logo"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"><span>SwiftBank</span></a>
-          <button class="menu-toggle" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
-          <ul class="nav-menu">
-            <li><a href="#" class="nav-link active" data-screen="homeScreen">🏠 Home</a></li>
-            <li><a href="#" class="nav-link" data-screen="transferScreen">💸 Transfer</a></li>
-            <li><a href="#" class="nav-link" data-screen="analyticsScreen">📊 Stats</a></li>
-            <li><a href="download.html" class="nav-link">⬇️ Download</a></li>
-          </ul>
-        </nav>
-      </header>
+      <header class="site-header"><nav class="navbar">
+        <a href="index.html" class="nav-logo"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"><span>SwiftBank</span></a>
+        <button class="menu-toggle" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+        <ul class="nav-menu">
+          <li><a href="#" class="nav-link active" data-screen="homeScreen">🏠 Home</a></li>
+          <li><a href="#" class="nav-link" data-screen="transferScreen">💸 Transfer</a></li>
+          <li><a href="#" class="nav-link" data-screen="analyticsScreen">📊 Stats</a></li>
+          <li><a href="download.html" class="nav-link">⬇️ Download</a></li>
+        </ul>
+      </nav></header>
 
       <section id="homeScreen" class="screen active">
         <div class="home-left">
-          <div class="topbar">
-            <div class="user-box">
-              <h2>Hello, <span id="displayName">User</span></h2>
-              <p>Your SwiftBank account number: <strong id="accountNumberText">0000000000</strong></p>
-              <span class="status-pill">Online Firestore Sync</span>
-            </div>
-            <div class="top-actions"><button class="btn btn-dark install-small" id="installSmallBtn">Install</button><div class="avatar" id="avatar">U</div></div>
-          </div>
-
-          <div class="card">
-            <div>
-              <small>Available Balance</small>
-              <div class="balance-row"><div class="balance" id="balanceText">₦0</div><button type="button" class="hide-btn" id="hideBalanceBtn">Hide</button></div>
-            </div>
-            <div class="card-number"><span>SWIFT</span><span id="cardAccountEnd">0000</span><span>DEMO</span><span>2026</span></div>
-          </div>
-
-          <div class="quick-actions">
-            <div class="action" data-screen="transferScreen"><span>💸</span><p>Transfer</p></div>
-            <div class="action" id="payBillBtn"><span>🧾</span><p>Pay Bills</p></div>
-            <div class="action" id="buyAirtimeBtn"><span>📱</span><p>Airtime</p></div>
-            <div class="action" data-screen="settingsScreen"><span>⚙️</span><p>Settings</p></div>
-          </div>
+          <div class="topbar"><div class="user-box"><h2>Hello, <span id="displayName">User</span></h2><p>Your SwiftBank account number: <strong id="accountNumberText">0000000000</strong></p></div><div class="top-actions"><button class="btn btn-dark install-small" id="installSmallBtn">Install</button><div class="avatar" id="avatar">U</div></div></div>
+          <div class="card"><div><small>Available Balance</small><div class="balance-row"><div class="balance" id="balanceText">₦0</div><button type="button" class="hide-btn" id="hideBalanceBtn">Hide</button></div></div><div class="card-number"><span>SWIFT</span><span id="cardAccountEnd">0000</span><span>DEMO</span><span>2026</span></div></div>
+          <div class="quick-actions"><div class="action" data-screen="transferScreen"><span>💸</span><p>Transfer</p></div><div class="action" id="payBillBtn"><span>🧾</span><p>Pay Bills</p></div><div class="action" id="buyAirtimeBtn"><span>📱</span><p>Airtime</p></div><div class="action" data-screen="settingsScreen"><span>⚙️</span><p>Settings</p></div></div>
         </div>
-
         <div class="home-right"><div class="section-title"><h3>Recent Transactions</h3><button id="clearTransactionsBtn">Clear</button></div><div id="transactionList"></div></div>
       </section>
 
       <section id="transferScreen" class="screen">
-        <div class="topbar"><div class="user-box"><h2>SwiftBank Transfer</h2><p>Send demo money to another online SwiftBank account.</p></div></div>
+        <div class="topbar"><div class="user-box"><h2>SwiftBank Transfer</h2><p>Receiver username and account number must match.</p></div></div>
         <div id="successMessage" class="success-message"></div><div id="dangerMessage" class="danger-message"></div>
         <div class="transfer-box">
           <div class="form-group"><label>Receiver Username</label><input type="text" id="recipientName" placeholder="Example: David"></div>
           <div class="form-group"><label>Receiver Account Number</label><input type="text" id="recipientAccountNumber" placeholder="10-digit SwiftBank account" maxlength="10"></div>
           <div class="form-group"><label>Amount</label><input type="number" id="transferAmount" placeholder="Enter amount"></div>
-          <div class="form-group"><label>Transfer Type</label><select id="bankName"><option>SwiftBank Online Transfer</option></select></div>
+          <div class="form-group"><label>Transfer Type</label><select id="bankName"><option>SwiftBank Internal Transfer</option></select></div>
           <button class="btn btn-primary" id="sendMoneyBtn">Send Money</button>
-          <p class="small-warning">This is an online demo. Receiver username and account number must match an account in Firebase Firestore.</p>
+          <p class="small-warning">Demo rule: receiver username and account number must match another account that has already been created through the normal login screen on this browser.</p>
         </div>
       </section>
 
       <section id="analyticsScreen" class="screen">
         <div class="topbar"><div class="user-box"><h2>Account Stats</h2><p>Your demo account summary</p></div></div>
-        <div class="analytics-box"><div class="stat-grid">
-          <div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div>
-          <div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div>
-          <div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div>
-          <div class="stat"><p>Account Type</p><h3>Savings</h3></div>
-        </div></div>
+        <div class="analytics-box"><div class="stat-grid"><div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div><div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div><div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div><div class="stat"><p>Account Type</p><h3>Savings</h3></div></div></div>
       </section>
 
       <section id="settingsScreen" class="screen">
         <div class="topbar"><div class="user-box"><h2>Settings</h2><p>Control your demo app</p></div></div>
-        <div class="settings-box">
-          <button class="btn btn-primary" id="addDemoCreditBtn">Add Demo Credit</button>
-          <button class="btn btn-dark" id="installSettingsBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
-          <button class="btn btn-danger" id="lockAppBtn">Lock App</button>
-          <button class="btn btn-danger" id="fullLogoutBtn">Logout Completely</button>
-          <p class="small-warning">Starting balance is ₦0. Demo credit is for testing only.</p>
-        </div>
+        <div class="settings-box"><button class="btn btn-primary" id="addDemoCreditBtn">Add Demo Credit</button><button class="btn btn-dark" id="installSettingsBtn" style="display:none;margin-top:12px;">📲 Install Web App</button><button class="btn btn-danger" id="lockAppBtn">Lock App</button><button class="btn btn-danger" id="fullLogoutBtn">Logout Completely</button><p class="small-warning">Balance starts at ₦0. Use Add Demo Credit before spending.</p></div>
       </section>
 
-      <nav class="bottom-nav">
-        <div class="nav-item active" data-screen="homeScreen"><span>🏠</span>Home</div>
-        <div class="nav-item" data-screen="transferScreen"><span>💸</span>Transfer</div>
-        <div class="nav-item" data-screen="analyticsScreen"><span>📊</span>Stats</div>
-        <div class="nav-item" data-screen="settingsScreen"><span>⚙️</span>Settings</div>
-      </nav>
+      <nav class="bottom-nav"><div class="nav-item active" data-screen="homeScreen"><span>🏠</span>Home</div><div class="nav-item" data-screen="transferScreen"><span>💸</span>Transfer</div><div class="nav-item" data-screen="analyticsScreen"><span>📊</span>Stats</div><div class="nav-item" data-screen="settingsScreen"><span>⚙️</span>Settings</div></nav>
     </div>
   </main>
 
-  <div id="pinModal" class="pin-modal">
-    <div class="pin-box">
-      <h3>Confirm Transfer</h3>
-      <p>Please enter your login PIN to authorize this demo transfer.</p>
-      <div class="form-group"><label>Transaction PIN</label><input type="password" id="transferPin" placeholder="Enter PIN" maxlength="4"></div>
-      <div id="pinError" class="danger-message"></div>
-      <div class="modal-actions"><button class="btn btn-ghost" id="cancelPinBtn">Cancel</button><button class="btn btn-primary" id="confirmPinBtn">Confirm</button></div>
-    </div>
-  </div>
+  <div id="pinModal" class="pin-modal"><div class="pin-box"><h3>Confirm Transfer</h3><p>Please enter your login PIN to authorize this demo transfer.</p><div class="form-group"><label>Transaction PIN</label><input type="password" id="transferPin" placeholder="Enter PIN" maxlength="4"></div><div id="pinError" class="danger-message"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelPinBtn">Cancel</button><button class="btn btn-primary" id="confirmPinBtn">Confirm</button></div></div></div>
 
-
-  <script>
-    // Safety fallback: prevents Login button from appearing dead if Firebase/module setup fails.
-    window.swiftBankModuleReady = false;
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const loginBtn = document.getElementById("loginBtn");
-
-      if (loginBtn) {
-        loginBtn.addEventListener("click", function () {
-          setTimeout(function () {
-            if (!window.swiftBankModuleReady) {
-              alert(
-                "SwiftBank online setup is not ready yet.\n\n" +
-                "Please make sure:\n" +
-                "1. You uploaded the app to GitHub Pages or HTTPS hosting.\n" +
-                "2. You replaced the placeholder values in firebase-config.js.\n" +
-                "3. Firestore Database is enabled in Firebase.\n\n" +
-                "Opening this app directly from phone/laptop files can stop Firebase login from working."
-              );
-            }
-          }, 300);
-        });
-      }
-    });
-  </script>
-
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

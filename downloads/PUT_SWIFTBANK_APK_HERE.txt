@@ -1,1 +1,1 @@
-Build APK separately, rename to SwiftBank.apk, and place it here.
+Build APK separately, rename to SwiftBank.apk, and place it in this folder.

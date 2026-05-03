@@ -1,0 +1,14 @@
+SWIFTBANK MULTI-USER DEMO
+
+New:
+- Every user gets a different 10-digit account number.
+- Dashboard shows the logged-in user's account number.
+- Users page creates another local SwiftBank demo user.
+- Transfer requires receiver username + receiver account number.
+- Sender balance reduces and receiver balance increases.
+- Both users get transaction history.
+- Starting balance is ₦0.
+
+Important:
+This works with localStorage on the same browser/device only.
+For real transfer across different phones, you need a backend database like Firebase or Supabase.

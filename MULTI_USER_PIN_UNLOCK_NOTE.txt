@@ -1,0 +1,12 @@
+PIN-ONLY LOGIN ADDED
+
+How it works:
+- First time: user enters username + PIN.
+- The app creates or opens that SwiftBank demo account.
+- The account number is saved as the last account on this device.
+- Next time: username field is hidden.
+- User only enters PIN to unlock the same account.
+- Logout Completely clears the remembered account and asks for username again.
+
+Reminder:
+This is demo storage using localStorage on the same browser/device.
