@@ -1,47 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='108' fill='%230f766e'/><rect x='94' y='94' width='324' height='324' rx='88' fill='white'/><text x='256' y='322' text-anchor='middle' font-family='Arial' font-size='228' font-weight='900' fill='%230f766e'>S</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="assets/swiftbank-logo.svg">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f766e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>SwiftBank Demo</title>
+  <title>SwiftBank Online Demo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="loadingOverlay" class="loading-overlay">
-    <div class="spinner"></div>
-    <p>Opening your dashboard...</p>
-  </div>
+  <div id="loadingOverlay" class="loading-overlay"><div class="spinner"></div><p>Opening your dashboard...</p></div>
 
   <main id="loginPage" class="login-page active">
     <section class="login-card">
       <div class="login-content">
         <div class="brand">
-          <div class="brand-logo"><svg class="swift-logo-svg" width="82" height="82" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="SwiftBank Logo" role="img">
-  <defs>
-    <linearGradient id="swiftGradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#07111f"/>
-      <stop offset="55%" stop-color="#0f766e"/>
-      <stop offset="100%" stop-color="#22c55e"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="108" fill="url(#swiftGradient)"/>
-  <circle cx="415" cy="70" r="150" fill="rgba(255,255,255,0.14)"/>
-  <circle cx="75" cy="460" r="145" fill="rgba(0,0,0,0.18)"/>
-  <rect x="94" y="94" width="324" height="324" rx="88" fill="#ffffff"/>
-  <text x="256" y="322" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="228" font-weight="900" fill="#0f766e">S</text>
-</svg></div>
+          <img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo">
           <h1>SwiftBank</h1>
-          <p>Smart demo banking experience</p>
+          <p>Online demo banking</p>
         </div>
 
         <div class="form-group" id="usernameGroup">
           <label>Username</label>
-          <input type="text" id="username" placeholder="Enter demo username">
+          <input type="text" id="username" placeholder="Example: David">
         </div>
 
         <div class="form-group">
@@ -49,10 +33,10 @@
           <input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4">
         </div>
 
-        <button class="btn btn-ghost" id="loginBtn">Login</button>
+        <button class="btn btn-ghost" id="loginBtn">Login / Create Account</button>
         <button class="btn btn-dark" id="installLoginBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
 
-        <p class="demo-note">Demo only. Do not enter real banking details, real PINs, BVN, card number, or password.</p>
+        <p class="demo-note">This version uses Firebase Firestore so accounts can sync across phones after setup.</p>
       </div>
     </section>
   </main>
@@ -61,23 +45,7 @@
     <div class="app-shell">
       <header class="site-header">
         <nav class="navbar">
-          <a href="index.html" class="nav-logo">
-            <svg class="swift-logo-svg" width="42" height="42" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="SwiftBank Logo" role="img">
-  <defs>
-    <linearGradient id="swiftGradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#07111f"/>
-      <stop offset="55%" stop-color="#0f766e"/>
-      <stop offset="100%" stop-color="#22c55e"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="108" fill="url(#swiftGradient)"/>
-  <circle cx="415" cy="70" r="150" fill="rgba(255,255,255,0.14)"/>
-  <circle cx="75" cy="460" r="145" fill="rgba(0,0,0,0.18)"/>
-  <rect x="94" y="94" width="324" height="324" rx="88" fill="#ffffff"/>
-  <text x="256" y="322" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="228" font-weight="900" fill="#0f766e">S</text>
-</svg>
-            <span>SwiftBank</span>
-          </a>
+          <a href="index.html" class="nav-logo"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"><span>SwiftBank</span></a>
           <button class="menu-toggle" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
           <ul class="nav-menu">
             <li><a href="#" class="nav-link active" data-screen="homeScreen">🏠 Home</a></li>
@@ -93,71 +61,52 @@
           <div class="topbar">
             <div class="user-box">
               <h2>Hello, <span id="displayName">User</span></h2>
-              <p>Welcome back to your dashboard</p>
+              <p>Your SwiftBank account number: <strong id="accountNumberText">0000000000</strong></p>
+              <span class="status-pill">Online Firestore Sync</span>
             </div>
-
-            <div class="top-actions">
-              <button class="btn btn-dark install-small" id="installSmallBtn">Install</button>
-              <div class="avatar" id="avatar">U</div>
-            </div>
+            <div class="top-actions"><button class="btn btn-dark install-small" id="installSmallBtn">Install</button><div class="avatar" id="avatar">U</div></div>
           </div>
 
           <div class="card">
             <div>
               <small>Available Balance</small>
-              <div class="balance-row">
-                <div class="balance" id="balanceText">₦0</div>
-                <button type="button" class="hide-btn" id="hideBalanceBtn">Hide</button>
-              </div>
+              <div class="balance-row"><div class="balance" id="balanceText">₦0</div><button type="button" class="hide-btn" id="hideBalanceBtn">Hide</button></div>
             </div>
-
-            <div class="card-number">
-              <span>****</span><span>****</span><span>****</span><span>2489</span>
-            </div>
+            <div class="card-number"><span>SWIFT</span><span id="cardAccountEnd">0000</span><span>DEMO</span><span>2026</span></div>
           </div>
 
           <div class="quick-actions">
             <div class="action" data-screen="transferScreen"><span>💸</span><p>Transfer</p></div>
             <div class="action" id="payBillBtn"><span>🧾</span><p>Pay Bills</p></div>
             <div class="action" id="buyAirtimeBtn"><span>📱</span><p>Airtime</p></div>
-            <div class="action" data-screen="analyticsScreen"><span>📊</span><p>Stats</p></div>
+            <div class="action" data-screen="settingsScreen"><span>⚙️</span><p>Settings</p></div>
           </div>
         </div>
 
-        <div class="home-right">
-          <div class="section-title">
-            <h3>Recent Transactions</h3>
-            <button id="clearTransactionsBtn">Clear</button>
-          </div>
-          <div id="transactionList"></div>
-        </div>
+        <div class="home-right"><div class="section-title"><h3>Recent Transactions</h3><button id="clearTransactionsBtn">Clear</button></div><div id="transactionList"></div></div>
       </section>
 
       <section id="transferScreen" class="screen">
-        <div class="topbar"><div class="user-box"><h2>Transfer Money</h2><p>Send demo funds safely</p></div></div>
-        <div id="successMessage" class="success-message"></div>
-        <div id="dangerMessage" class="danger-message"></div>
-
+        <div class="topbar"><div class="user-box"><h2>SwiftBank Transfer</h2><p>Send demo money to another online SwiftBank account.</p></div></div>
+        <div id="successMessage" class="success-message"></div><div id="dangerMessage" class="danger-message"></div>
         <div class="transfer-box">
-          <div class="form-group"><label>Recipient Name</label><input type="text" id="recipientName" placeholder="Example: John Doe"></div>
-          <div class="form-group"><label>Bank</label><select id="bankName"><option>First Demo Bank</option><option>Swift Microfinance</option><option>GreenTrust Bank</option><option>Campus Pay Bank</option></select></div>
-          <div class="form-group"><label>Account Number</label><input type="text" id="accountNumber" placeholder="10-digit demo account" maxlength="10"></div>
+          <div class="form-group"><label>Receiver Username</label><input type="text" id="recipientName" placeholder="Example: David"></div>
+          <div class="form-group"><label>Receiver Account Number</label><input type="text" id="recipientAccountNumber" placeholder="10-digit SwiftBank account" maxlength="10"></div>
           <div class="form-group"><label>Amount</label><input type="number" id="transferAmount" placeholder="Enter amount"></div>
+          <div class="form-group"><label>Transfer Type</label><select id="bankName"><option>SwiftBank Online Transfer</option></select></div>
           <button class="btn btn-primary" id="sendMoneyBtn">Send Money</button>
-          <p class="small-warning">This is a demo. Real banking apps need secure backend authentication, encryption, server validation, audit logs, and legal compliance.</p>
+          <p class="small-warning">This is an online demo. Receiver username and account number must match an account in Firebase Firestore.</p>
         </div>
       </section>
 
       <section id="analyticsScreen" class="screen">
         <div class="topbar"><div class="user-box"><h2>Account Stats</h2><p>Your demo account summary</p></div></div>
-        <div class="analytics-box">
-          <div class="stat-grid">
-            <div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div>
-            <div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div>
-            <div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div>
-            <div class="stat"><p>Account Type</p><h3>Savings</h3></div>
-          </div>
-        </div>
+        <div class="analytics-box"><div class="stat-grid">
+          <div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div>
+          <div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div>
+          <div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div>
+          <div class="stat"><p>Account Type</p><h3>Savings</h3></div>
+        </div></div>
       </section>
 
       <section id="settingsScreen" class="screen">
@@ -167,7 +116,7 @@
           <button class="btn btn-dark" id="installSettingsBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
           <button class="btn btn-danger" id="lockAppBtn">Lock App</button>
           <button class="btn btn-danger" id="fullLogoutBtn">Logout Completely</button>
-          <p class="small-warning">Balance starts at ₦0. Use Add Demo Credit before transferring or paying bills.</p>
+          <p class="small-warning">Starting balance is ₦0. Demo credit is for testing only.</p>
         </div>
       </section>
 
@@ -190,6 +139,34 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+
+  <script>
+    // Safety fallback: prevents Login button from appearing dead if Firebase/module setup fails.
+    window.swiftBankModuleReady = false;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginBtn = document.getElementById("loginBtn");
+
+      if (loginBtn) {
+        loginBtn.addEventListener("click", function () {
+          setTimeout(function () {
+            if (!window.swiftBankModuleReady) {
+              alert(
+                "SwiftBank online setup is not ready yet.\n\n" +
+                "Please make sure:\n" +
+                "1. You uploaded the app to GitHub Pages or HTTPS hosting.\n" +
+                "2. You replaced the placeholder values in firebase-config.js.\n" +
+                "3. Firestore Database is enabled in Firebase.\n\n" +
+                "Opening this app directly from phone/laptop files can stop Firebase login from working."
+              );
+            }
+          }, 300);
+        });
+      }
+    });
+  </script>
+
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

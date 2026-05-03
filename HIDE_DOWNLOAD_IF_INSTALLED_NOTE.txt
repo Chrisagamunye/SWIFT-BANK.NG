@@ -1,0 +1,10 @@
+HIDE DOWNLOAD IF INSTALLED
+
+Updated:
+- Install buttons hide when the app is already installed / running in standalone mode.
+- Download page hides the Download APK and Install Web App buttons after install.
+- It shows: SwiftBank is already installed on this device.
+
+Note:
+Browsers detect installed PWA mainly when opened in standalone/app mode.
+The app also saves an installed flag after the appinstalled event.

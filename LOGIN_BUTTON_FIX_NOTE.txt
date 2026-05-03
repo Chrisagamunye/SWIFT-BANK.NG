@@ -1,0 +1,18 @@
+LOGIN BUTTON FIX
+
+The login button may look like it is not clicking when:
+1. You open the app directly from phone/laptop storage instead of GitHub Pages/HTTPS.
+2. firebase-config.js still contains placeholder values.
+3. Firestore is not enabled.
+
+This version now:
+- Shows a clear alert if Firebase is not configured.
+- Prevents the button from appearing dead.
+- Keeps the Firebase online transfer version.
+
+To make online login work:
+1. Upload to GitHub Pages.
+2. Create Firebase project.
+3. Enable Firestore Database.
+4. Paste Firebase config into firebase-config.js.
+5. Refresh the page.

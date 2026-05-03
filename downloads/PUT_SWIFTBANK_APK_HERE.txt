@@ -1,3 +1,1 @@
-After building your Android APK, rename it to SwiftBank.apk and place it in this downloads folder.
-
-The Download APK button points to: downloads/SwiftBank.apk
+Build APK separately, rename to SwiftBank.apk, and place it here.

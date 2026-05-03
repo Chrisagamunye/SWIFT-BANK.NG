@@ -1,118 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='108' fill='%230f766e'/><rect x='94' y='94' width='324' height='324' rx='88' fill='white'/><text x='256' y='322' text-anchor='middle' font-family='Arial' font-size='228' font-weight='900' fill='%230f766e'>S</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="assets/swiftbank-logo.svg">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f766e">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Download SwiftBank App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download SwiftBank</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="navbar">
-      <a href="index.html" class="nav-logo">
-        <svg class="swift-logo-svg" width="42" height="42" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="SwiftBank Logo" role="img">
-  <defs>
-    <linearGradient id="swiftGradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#07111f"/>
-      <stop offset="55%" stop-color="#0f766e"/>
-      <stop offset="100%" stop-color="#22c55e"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="108" fill="url(#swiftGradient)"/>
-  <circle cx="415" cy="70" r="150" fill="rgba(255,255,255,0.14)"/>
-  <circle cx="75" cy="460" r="145" fill="rgba(0,0,0,0.18)"/>
-  <rect x="94" y="94" width="324" height="324" rx="88" fill="#ffffff"/>
-  <text x="256" y="322" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="228" font-weight="900" fill="#0f766e">S</text>
-</svg>
-        <span>SwiftBank</span>
-      </a>
-      <button class="menu-toggle" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link">🏠 App</a></li>
-        <li><a href="download.html" class="nav-link active">⬇️ Download</a></li>
-      </ul>
-    </nav>
-  </header>
+<header class="site-header"><nav class="navbar"><a href="index.html" class="nav-logo"><img src="assets/swiftbank-logo.svg"><span>SwiftBank</span></a><ul class="nav-menu"><li><a class="nav-link" href="index.html">🏠 App</a></li><li><a class="nav-link active" href="download.html">⬇️ Download</a></li></ul></nav></header>
+<main><section class="download-hero"><h1>Download SwiftBank App</h1><p>Install as a web app or add an APK later.</p></section><section class="download-card"><img class="app-icon" src="assets/swiftbank-logo.svg"><div><h2>SwiftBank for Android</h2><p>Online demo banking app with Firebase transfer sync.</p><div class="button-row" id="downloadButtons"><a class="btn btn-primary" id="apkDownloadBtn" href="downloads/SwiftBank.apk" download>⬇️ Download APK</a><button class="btn btn-ghost" id="pwaInstallBtn">📲 Install Web App</button><a class="btn btn-ghost" href="index.html">🏦 Open App</a></div><div id="installedNotice" class="notice" style="display:none;">✅ SwiftBank is already installed on this device. Use the app from your home screen or app launcher.</div><div class="notice">Place your built APK here: <strong>downloads/SwiftBank.apk</strong></div></div></section></main><footer class="footer">© 2026 SwiftBank Online Demo</footer>
+<script>
+let d=null;
+const pwaInstallBtn=document.getElementById('pwaInstallBtn');
+const downloadButtons=document.getElementById('downloadButtons');
+const installedNotice=document.getElementById('installedNotice');
 
-  <main>
-    <section class="download-hero">
-      <span class="eyebrow">Android ready</span>
-      <h1>Download SwiftBank App</h1>
-      <p>Install SwiftBank as a web app or download the Android APK when you upload your APK file.</p>
-    </section>
+function isInstalledMode(){
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true || localStorage.getItem('swiftbank_app_installed')==='yes';
+}
 
-    <section class="download-card">
-      <div class="app-icon inline-app-icon"><svg class="swift-logo-svg" width="82" height="82" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="SwiftBank Logo" role="img">
-  <defs>
-    <linearGradient id="swiftGradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#07111f"/>
-      <stop offset="55%" stop-color="#0f766e"/>
-      <stop offset="100%" stop-color="#22c55e"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="108" fill="url(#swiftGradient)"/>
-  <circle cx="415" cy="70" r="150" fill="rgba(255,255,255,0.14)"/>
-  <circle cx="75" cy="460" r="145" fill="rgba(0,0,0,0.18)"/>
-  <rect x="94" y="94" width="324" height="324" rx="88" fill="#ffffff"/>
-  <text x="256" y="322" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="228" font-weight="900" fill="#0f766e">S</text>
-</svg></div>
-      <div class="download-info">
-        <h2>SwiftBank for Android</h2>
-        <p>Open your demo banking dashboard from your phone or laptop.</p>
-        <div class="button-row">
-          <a class="btn btn-primary" href="downloads/SwiftBank.apk" download>⬇️ Download APK</a>
-          <button class="btn btn-ghost" id="pwaInstallBtn">📲 Install Web App</button>
-          <a class="btn btn-ghost" href="index.html">🏦 Open App</a>
-        </div>
-        <div class="notice">
-          Important: place your built APK file here: <strong>downloads/SwiftBank.apk</strong>. The button above is already linked to it.
-        </div>
-      </div>
-    </section>
+function updateDownloadPage(){
+  if(isInstalledMode()){
+    if(downloadButtons)downloadButtons.style.display='none';
+    if(installedNotice)installedNotice.style.display='block';
+  }else{
+    if(downloadButtons)downloadButtons.style.display='flex';
+    if(installedNotice)installedNotice.style.display='none';
+  }
+}
 
-    <section class="steps">
-      <article class="step"><span>1</span><h3>Deploy Web App</h3><p>Upload all files and folders to GitHub Pages or any HTTPS hosting.</p></article>
-      <article class="step"><span>2</span><h3>Install PWA</h3><p>Click Install Web App or use your browser menu to add it to your device.</p></article>
-      <article class="step"><span>3</span><h3>Add APK Later</h3><p>Build your APK, rename it to SwiftBank.apk, and place it inside the downloads folder.</p></article>
-    </section>
-  </main>
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  d=e;
+  updateDownloadPage();
+});
 
-  <footer class="footer">© 2026 SwiftBank Demo. For learning only.</footer>
+if(pwaInstallBtn){
+  pwaInstallBtn.onclick=async()=>{
+    if(!d)return alert('Use browser menu: Add to Home screen / Install app.');
+    d.prompt();
+    await d.userChoice;
+    d=null;
+    updateDownloadPage();
+  };
+}
 
-  <script>
-    const toggle=document.querySelector(".menu-toggle");
-    const menu=document.querySelector(".nav-menu");
-    if(toggle&&menu){toggle.addEventListener("click",()=>menu.classList.toggle("show"));}
+window.addEventListener('appinstalled',()=>{
+  localStorage.setItem('swiftbank_app_installed','yes');
+  updateDownloadPage();
+});
 
-    const pwaInstallBtn=document.getElementById("pwaInstallBtn");
-    let deferredPrompt=null;
+window.matchMedia('(display-mode: standalone)').addEventListener?.('change',updateDownloadPage);
 
-    window.addEventListener("beforeinstallprompt",(event)=>{
-      event.preventDefault();
-      deferredPrompt=event;
-      if(pwaInstallBtn)pwaInstallBtn.style.display="inline-block";
-    });
+updateDownloadPage();
 
-    if(pwaInstallBtn){
-      pwaInstallBtn.addEventListener("click",async()=>{
-        if(!deferredPrompt){
-          alert("Use your browser menu and choose 'Add to Home screen' or 'Install app'.");
-          return;
-        }
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt=null;
-      });
-    }
-
-    if("serviceWorker" in navigator){
-      window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
-    }
-  </script>
-</body>
-</html>
+if('serviceWorker'in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js'));
+}
+</script>
+</body></html>

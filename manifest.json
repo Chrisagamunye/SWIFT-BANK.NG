@@ -1,7 +1,6 @@
 {
-  "name": "SwiftBank Demo",
+  "name": "SwiftBank Online Demo",
   "short_name": "SwiftBank",
-  "description": "SwiftBank demo banking web app with PWA install support.",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
