@@ -13,16 +13,15 @@
 </head>
 <body>
   <div id="loadingOverlay" class="loading-overlay"><div class="spinner"></div><p>Opening your dashboard...</p></div>
-
   <main id="loginPage" class="login-page active">
     <section class="login-card">
       <div class="login-content">
-        <div class="brand"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"><h1>SwiftBank</h1><p>Demo banking with unique accounts</p></div>
-        <div class="form-group"><label>Username</label><input type="text" id="username" placeholder="Example: David"></div>
-        <div class="form-group"><label>PIN</label><input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4"></div>
+        <div class="brand"><img src="assets/swiftbank-logo.svg" alt="SwiftBank Logo"><h1>SwiftBank</h1><p>Offline demo banking</p></div>
+        <div class="form-group" id="usernameGroup"><label>Username</label><input type="text" id="username" placeholder="Example: David"></div>
+        <div class="form-group"><label id="pinLabel">PIN</label><input type="password" id="pin" placeholder="Enter any 4 digits" maxlength="4"></div>
         <button class="btn btn-ghost" id="loginBtn">Login / Create Account</button>
         <button class="btn btn-dark" id="installLoginBtn" style="display:none;margin-top:12px;">📲 Install Web App</button>
-        <p class="demo-note">First login creates a demo SwiftBank account with a unique account number on this browser.</p>
+        <p class="demo-note">No Firebase needed. Accounts are saved on this browser only.</p>
       </div>
     </section>
   </main>
@@ -42,7 +41,7 @@
 
       <section id="homeScreen" class="screen active">
         <div class="home-left">
-          <div class="topbar"><div class="user-box"><h2>Hello, <span id="displayName">User</span></h2><p>Your SwiftBank account number: <strong id="accountNumberText">0000000000</strong></p></div><div class="top-actions"><button class="btn btn-dark install-small" id="installSmallBtn">Install</button><div class="avatar" id="avatar">U</div></div></div>
+          <div class="topbar"><div class="user-box"><h2>Hello, <span id="displayName">User</span></h2><p>Your SwiftBank account number: <strong id="accountNumberText">0000000000</strong></p><span class="status-pill">Offline Demo Mode</span></div><div class="top-actions"><button class="btn btn-dark install-small" id="installSmallBtn">Install</button><div class="avatar" id="avatar">U</div></div></div>
           <div class="card"><div><small>Available Balance</small><div class="balance-row"><div class="balance" id="balanceText">₦0</div><button type="button" class="hide-btn" id="hideBalanceBtn">Hide</button></div></div><div class="card-number"><span>SWIFT</span><span id="cardAccountEnd">0000</span><span>DEMO</span><span>2026</span></div></div>
           <div class="quick-actions"><div class="action" data-screen="transferScreen"><span>💸</span><p>Transfer</p></div><div class="action" id="payBillBtn"><span>🧾</span><p>Pay Bills</p></div><div class="action" id="buyAirtimeBtn"><span>📱</span><p>Airtime</p></div><div class="action" data-screen="settingsScreen"><span>⚙️</span><p>Settings</p></div></div>
         </div>
@@ -50,34 +49,25 @@
       </section>
 
       <section id="transferScreen" class="screen">
-        <div class="topbar"><div class="user-box"><h2>SwiftBank Transfer</h2><p>Receiver username and account number must match.</p></div></div>
+        <div class="topbar"><div class="user-box"><h2>SwiftBank Transfer</h2><p>Transfer to another local SwiftBank account on this browser.</p></div></div>
         <div id="successMessage" class="success-message"></div><div id="dangerMessage" class="danger-message"></div>
         <div class="transfer-box">
           <div class="form-group"><label>Receiver Username</label><input type="text" id="recipientName" placeholder="Example: David"></div>
           <div class="form-group"><label>Receiver Account Number</label><input type="text" id="recipientAccountNumber" placeholder="10-digit SwiftBank account" maxlength="10"></div>
           <div class="form-group"><label>Amount</label><input type="number" id="transferAmount" placeholder="Enter amount"></div>
-          <div class="form-group"><label>Transfer Type</label><select id="bankName"><option>SwiftBank Internal Transfer</option></select></div>
+          <div class="form-group"><label>Transfer Type</label><select><option>SwiftBank Local Demo Transfer</option></select></div>
           <button class="btn btn-primary" id="sendMoneyBtn">Send Money</button>
-          <p class="small-warning">Demo rule: receiver username and account number must match another account that has already been created through the normal login screen on this browser.</p>
+          <p class="small-warning">Receiver account must already exist on this same browser. For phone-to-phone transfer, Firebase can be added later.</p>
         </div>
       </section>
 
-      <section id="analyticsScreen" class="screen">
-        <div class="topbar"><div class="user-box"><h2>Account Stats</h2><p>Your demo account summary</p></div></div>
-        <div class="analytics-box"><div class="stat-grid"><div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div><div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div><div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div><div class="stat"><p>Account Type</p><h3>Savings</h3></div></div></div>
-      </section>
-
-      <section id="settingsScreen" class="screen">
-        <div class="topbar"><div class="user-box"><h2>Settings</h2><p>Control your demo app</p></div></div>
-        <div class="settings-box"><button class="btn btn-primary" id="addDemoCreditBtn">Add Demo Credit</button><button class="btn btn-dark" id="installSettingsBtn" style="display:none;margin-top:12px;">📲 Install Web App</button><button class="btn btn-danger" id="lockAppBtn">Lock App</button><button class="btn btn-danger" id="fullLogoutBtn">Logout Completely</button><p class="small-warning">Balance starts at ₦0. Use Add Demo Credit before spending.</p></div>
-      </section>
-
+      <section id="analyticsScreen" class="screen"><div class="topbar"><div class="user-box"><h2>Account Stats</h2><p>Your demo account summary</p></div></div><div class="analytics-box"><div class="stat-grid"><div class="stat"><p>Total Credit</p><h3 id="totalCredit">₦0</h3></div><div class="stat"><p>Total Debit</p><h3 id="totalDebit">₦0</h3></div><div class="stat"><p>Transactions</p><h3 id="totalTransactions">0</h3></div><div class="stat"><p>Account Type</p><h3>Savings</h3></div></div></div></section>
+      <section id="settingsScreen" class="screen"><div class="topbar"><div class="user-box"><h2>Settings</h2><p>Control your demo app</p></div></div><div class="settings-box"><button class="btn btn-primary" id="addDemoCreditBtn">Add Demo Credit</button><button class="btn btn-dark" id="installSettingsBtn" style="display:none;margin-top:12px;">📲 Install Web App</button><button class="btn btn-danger" id="lockAppBtn">Lock App</button><button class="btn btn-danger" id="fullLogoutBtn">Logout Completely</button><p class="small-warning">Starting balance is ₦0. Demo credit is for testing only.</p></div></section>
       <nav class="bottom-nav"><div class="nav-item active" data-screen="homeScreen"><span>🏠</span>Home</div><div class="nav-item" data-screen="transferScreen"><span>💸</span>Transfer</div><div class="nav-item" data-screen="analyticsScreen"><span>📊</span>Stats</div><div class="nav-item" data-screen="settingsScreen"><span>⚙️</span>Settings</div></nav>
     </div>
   </main>
 
   <div id="pinModal" class="pin-modal"><div class="pin-box"><h3>Confirm Transfer</h3><p>Please enter your login PIN to authorize this demo transfer.</p><div class="form-group"><label>Transaction PIN</label><input type="password" id="transferPin" placeholder="Enter PIN" maxlength="4"></div><div id="pinError" class="danger-message"></div><div class="modal-actions"><button class="btn btn-ghost" id="cancelPinBtn">Cancel</button><button class="btn btn-primary" id="confirmPinBtn">Confirm</button></div></div></div>
-
   <script src="app.js"></script>
 </body>
 </html>

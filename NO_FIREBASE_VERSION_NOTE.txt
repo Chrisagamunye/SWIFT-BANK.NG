@@ -1,0 +1,17 @@
+NO FIREBASE VERSION
+
+Firebase removed.
+
+What works:
+- Login / Create Account
+- Unique account number for each local account
+- PIN-only unlock after first login on same device
+- Starting balance ₦0
+- Add Demo Credit
+- Transfer using username + account number to another account created on same browser/device
+- Install Web App pattern
+- Download page hides install/download when installed
+
+Important:
+This version cannot sync between different phones.
+For phone-to-phone transfer later, Firebase or another backend is required.
